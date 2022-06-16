@@ -35,7 +35,6 @@ lambdaarn=$(aws lambda create-function \
     --zip-file fileb://maciescan.zip \
     --handler maciescan.lambda_handler \
     --role $rolearn --region=$region --no-cli-pager --query 'FunctionArn' --output text)
-aws events put-targets --rule $rulename  --targets "Id"="2","Arn"=$lambdaarn --region=$region
 ```
 
 ### Step 3 配置Securityhub输出
@@ -69,3 +68,4 @@ email='**@qq.com'
 }
 ```
 并将lambda加入Target 2中,部署完成
+aws events put-targets --rule $rulename  --targets "Id"="2","Arn"=$lambdaarn --region=$region
