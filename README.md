@@ -22,6 +22,7 @@ rolename='lambda-macie'
 rolearn=$(aws iam create-role --role-name $rolename --assume-role-policy-document file://trust-lambda.json --query 'Role.Arn' --output text)
 aws iam put-role-policy --role-name=$rolename --policy-name $lambdapolicy --policy-document file://lambdapolicy.json
 ```
+
 #### Create Lambda function
 变量设置
 ```
@@ -70,3 +71,8 @@ email='**@qq.com'
 ```
 并将lambda加入Target 2中,部署完成
 aws events put-targets --rule $rulename  --targets "Id"="2","Arn"=$lambdaarn --region=$region
+如果想要lambda rolearn查询可以使用
+```
+rolearn=$(aws iam get-role   --role-name $rolename --query 'Role.Arn' --output text)
+```
+
