@@ -68,5 +68,6 @@ lambdaarn=$(aws lambda create-function \
     --zip-file fileb://FSBP-S3public-lambda.zip \
     --handler FSBP-S3public-lambda.lambda_handler \
     --role $rolearn --region=$region --no-cli-pager --query 'FunctionArn' --output text)
+aws events put-targets --rule $rulename  --targets "Id"="2","Arn"=$lambdaarn --region=$region
 ```
 将Lambda trigger 添加为之前的eventbridge rule
