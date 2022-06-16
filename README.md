@@ -32,8 +32,8 @@ function='macie-scan-s3'
 lambdaarn=$(aws lambda create-function \
     --function-name $function \
     --runtime python3.9 \
-    --zip-file fileb://FSBP-S3public-lambda.zip \
-    --handler FSBP-S3public-lambda.lambda_handler \
+    --zip-file fileb://maciescan.zip \
+    --handler maciescan.lambda_handler \
     --role $rolearn --region=$region --no-cli-pager --query 'FunctionArn' --output text)
 aws events put-targets --rule $rulename  --targets "Id"="2","Arn"=$lambdaarn --region=$region
 ```
