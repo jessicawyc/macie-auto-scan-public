@@ -1,1 +1,2 @@
 # macie-auto-scan-public
+通过监听macie policy finding,从securityhub中提取finding发送至eventbridge,触发Lambda调用Macie进行敏感数据扫描
