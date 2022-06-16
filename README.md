@@ -13,7 +13,7 @@ region='securithub聚合后的region名:us-east-1'
 rulename='sechub-macie-alert'
 email='**@qq.com'
 ```
-其它Steps请使用[原文]中的CLI(https://github.com/jessicawyc/securityhub-alert/blob/main/README.md#2%E8%87%AA%E5%8A%A8%E5%8F%91%E9%80%81%E5%91%8A%E8%AD%A6%E6%A8%A1%E5%BC%8F)
+其它Steps请使用[原文中的CLI](https://github.com/jessicawyc/securityhub-alert/blob/main/README.md#2%E8%87%AA%E5%8A%A8%E5%8F%91%E9%80%81%E5%91%8A%E8%AD%A6%E6%A8%A1%E5%BC%8F)
 
 完成Input transforner之后还要
 修改Eventbridge中的event pattern替换成下方的内容
