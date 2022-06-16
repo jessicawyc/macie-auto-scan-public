@@ -39,12 +39,13 @@ email='**@qq.com'
 
 ### Step 3 配置Lambda
 配置Lambda要使用的IAM Role
-请下载[lambdapolicy.json](/lambdapolicy.json)
-下载[trust-lambda.json](/trust-lambda.json)
+请下载两个文件到本地后运行CLI
+[lambdapolicy.json](/lambdapolicy.json)
+[trust-lambda.json](/trust-lambda.json)
 
 ```
-lambdapolicy='lambda-auto-s3'
-rolename='lambda-auto-s3'
+lambdapolicy='lambda-macie'
+rolename='lambda-macie'
 rolearn=$(aws iam create-role --role-name $rolename --assume-role-policy-document file://trust-lambda.json --query 'Role.Arn' --output text)
 aws iam put-role-policy --role-name=$rolename --policy-name $lambdapolicy --policy-document file://lambdapolicy.json
 ```
