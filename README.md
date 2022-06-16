@@ -13,8 +13,8 @@ region='聚合后的region名:us-east-1'
 rulename='maciealerts3'
 email='**@qq.com'
 ```
-## 其它标准Step请使用
-https://github.com/jessicawyc/securityhub-alert/blob/main/README.md#%E8%87%AA%E5%8A%A8%E5%8F%91%E9%80%81%E5%91%8A%E8%AD%A6%E6%A8%A1%E5%BC%8F
+## 其它标准Step请使用[原文](https://github.com/jessicawyc/securityhub-alert/blob/main/README.md#2%E8%87%AA%E5%8A%A8%E5%8F%91%E9%80%81%E5%91%8A%E8%AD%A6%E6%A8%A1%E5%BC%8F)
+
 
 ## 修改Eventbridge中的event pattern
 ```
