@@ -7,15 +7,15 @@ TBD
 详见:https://github.com/jessicawyc/aws-enable-ess
 ### Step 2 配置Securityhub输出
 
-参数设置
+变量设置
 ```
-region='聚合后的region名:us-east-1'
-rulename='maciealerts3'
+region='securithub聚合后的region名:us-east-1'
+rulename='sechub-macie-alert'
 email='**@qq.com'
 ```
 其它Steps请使用[原文]中的CLI(https://github.com/jessicawyc/securityhub-alert/blob/main/README.md#2%E8%87%AA%E5%8A%A8%E5%8F%91%E9%80%81%E5%91%8A%E8%AD%A6%E6%A8%A1%E5%BC%8F)
 
-
+完成Input transforner之后还要
 修改Eventbridge中的event pattern替换成下方的内容
 ```
 {
@@ -38,21 +38,30 @@ email='**@qq.com'
 ```
 
 ### Step 3 配置Lambda
-配置Lambda要使用的IAM Role
-请下载两个文件到本地后运行CLI
+#### 配置Lambda要使用的IAM Role
+下载两个文件到本地
 [lambdapolicy.json](/lambdapolicy.json)
 [trust-lambda.json](/trust-lambda.json)
 
+变量设置
 ```
 lambdapolicy='lambda-macie'
 rolename='lambda-macie'
+```
+运行CLI命令
+
+```
 rolearn=$(aws iam create-role --role-name $rolename --assume-role-policy-document file://trust-lambda.json --query 'Role.Arn' --output text)
 aws iam put-role-policy --role-name=$rolename --policy-name $lambdapolicy --policy-document file://lambdapolicy.json
 ```
 
-## Create Lambda
+#### Create Lambda function
+变量设置
 ```
-function='auto-s3-public'
+function='macie-scan-s3'
+```
+运行CLI命令
+```
 lambdaarn=$(aws lambda create-function \
     --function-name $function \
     --runtime python3.9 \
@@ -60,3 +69,4 @@ lambdaarn=$(aws lambda create-function \
     --handler FSBP-S3public-lambda.lambda_handler \
     --role $rolearn --region=$region --no-cli-pager --query 'FunctionArn' --output text)
 ```
+将Lambda trigger 添加为之前的eventbridge rule
