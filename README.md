@@ -5,11 +5,43 @@ TBD
 ## 部署方法
 ### Step 1 打开macie和securityhub
 详见:https://github.com/jessicawyc/aws-enable-ess
-### Step 2 配置Securityhub输出
+### Step 2 配置Lambda
+#### 配置Lambda要使用的IAM Role
+下载两个文件到本地
+[lambdapolicy.json](/lambdapolicy.json)
+[trust-lambda.json](/trust-lambda.json)
 
 变量设置
 ```
-region='securithub聚合后的region名:us-east-1'
+lambdapolicy='lambda-macie'
+rolename='lambda-macie'
+```
+运行CLI命令
+
+```
+rolearn=$(aws iam create-role --role-name $rolename --assume-role-policy-document file://trust-lambda.json --query 'Role.Arn' --output text)
+aws iam put-role-policy --role-name=$rolename --policy-name $lambdapolicy --policy-document file://lambdapolicy.json
+```
+#### Create Lambda function
+变量设置
+```
+function='macie-scan-s3'
+```
+运行CLI命令
+```
+lambdaarn=$(aws lambda create-function \
+    --function-name $function \
+    --runtime python3.9 \
+    --zip-file fileb://FSBP-S3public-lambda.zip \
+    --handler FSBP-S3public-lambda.lambda_handler \
+    --role $rolearn --region=$region --no-cli-pager --query 'FunctionArn' --output text)
+aws events put-targets --rule $rulename  --targets "Id"="2","Arn"=$lambdaarn --region=$region
+```
+
+### Step 3 配置Securityhub输出
+
+变量设置
+```
 rulename='sechub-macie-alert'
 email='**@qq.com'
 ```
@@ -36,38 +68,4 @@ email='**@qq.com'
   }
 }
 ```
-
-### Step 3 配置Lambda
-#### 配置Lambda要使用的IAM Role
-下载两个文件到本地
-[lambdapolicy.json](/lambdapolicy.json)
-[trust-lambda.json](/trust-lambda.json)
-
-变量设置
-```
-lambdapolicy='lambda-macie'
-rolename='lambda-macie'
-```
-运行CLI命令
-
-```
-rolearn=$(aws iam create-role --role-name $rolename --assume-role-policy-document file://trust-lambda.json --query 'Role.Arn' --output text)
-aws iam put-role-policy --role-name=$rolename --policy-name $lambdapolicy --policy-document file://lambdapolicy.json
-```
-
-#### Create Lambda function
-变量设置
-```
-function='macie-scan-s3'
-```
-运行CLI命令
-```
-lambdaarn=$(aws lambda create-function \
-    --function-name $function \
-    --runtime python3.9 \
-    --zip-file fileb://FSBP-S3public-lambda.zip \
-    --handler FSBP-S3public-lambda.lambda_handler \
-    --role $rolearn --region=$region --no-cli-pager --query 'FunctionArn' --output text)
-aws events put-targets --rule $rulename  --targets "Id"="2","Arn"=$lambdaarn --region=$region
-```
-将Lambda trigger 添加为之前的eventbridge rule
+并将lambda加入Target 2中,部署完成
