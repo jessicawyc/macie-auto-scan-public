@@ -41,6 +41,7 @@ lambdaarn=$(aws lambda create-function \
 
 变量设置
 ```
+region='us-east-1'
 rulename='sechub-macie-alert'
 email='**@qq.com'
 ```
