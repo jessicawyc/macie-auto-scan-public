@@ -1,8 +1,8 @@
-# macie-auto-scan-public
+# macie-auto-scan-public S3
 通过监听macie policy finding,从securityhub中提取finding发送至eventbridge,触发Lambda调用Macie进行敏感数据扫描
-## 架构图
-[architecture](/architecture.png)
-## 部署方法
+## 架构图 Architecture
+![architecture](/architecture.png)
+## 部署方法 Deployment
 ### Step 1 打开macie和securityhub
 详见:https://github.com/jessicawyc/aws-enable-ess
 ### Step 2 配置Lambda
