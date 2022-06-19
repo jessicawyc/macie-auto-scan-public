@@ -40,7 +40,7 @@ lambdaarn=$(aws lambda create-function \
 
 ### Step 3 配置Securityhub输出
 
-变量设置
+参数设置
 ```
 region='us-east-1'
 rulename='sechub-macie-alert'
@@ -58,10 +58,7 @@ email='**@qq.com'
     "findings": {
       "RecordState": ["ACTIVE"],
       "ProductName": ["Macie"],
-      "Title": ["Block Public Access settings are disabled for the S3 bucket"],
-      "Severity": {
-        "Label": ["HIGH"]
-      },
+      "Types": ["Software and Configuration Checks/AWS Security Best Practices/Policy:IAMUser-S3BlockPublicAccessDisabled", "Effects/Data Exposure/Policy:IAMUser-S3BucketPublic", "Software and Configuration Checks/AWS Security Best Practices/Policy:IAMUser-S3BucketSharedExternally"],
       "Workflow": {
         "Status": ["NEW"]
       }
