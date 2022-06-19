@@ -58,7 +58,7 @@ email='**@qq.com'
     "findings": {
       "RecordState": ["ACTIVE"],
       "ProductName": ["Macie"],
-      "Types": ["Software and Configuration Checks/AWS Security Best Practices/Policy:IAMUser-S3BlockPublicAccessDisabled", "Effects/Data Exposure/Policy:IAMUser-S3BucketPublic", "Software and Configuration Checks/AWS Security Best Practices/Policy:IAMUser-S3BucketSharedExternally"],
+      "Types": ["Software and Configuration Checks/AWS Security Best Practices/Policy:IAMUser-S3BlockPublicAccessDisabled", "Effects/Data Exposure/Policy:IAMUser-S3BucketPublic"],
       "Workflow": {
         "Status": ["NEW"]
       }
