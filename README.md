@@ -72,7 +72,7 @@ aws events put-targets --rule $rulename  --targets "Id"="2","Arn"=$lambdaarn --r
 ```
 rolearn=$(aws iam get-role   --role-name $rolename --query 'Role.Arn' --output text)
 ```
-备注:如果希望针对与外部AWS account共享的S3,也自动发起扫描,则需要在Types中参加:
+备注:如果希望针对与外部AWS account共享的S3,也自动发起扫描,则需要在Types中增加:
 ```
 ,"Software and Configuration Checks/AWS Security Best Practices/Policy:IAMUser-S3BucketSharedExternally"
 ```
